@@ -130,15 +130,8 @@ Returns a formatted BibTeX entry."
            (names (arxiv-bibtexify-authors authors))
            (category (cdar (nth 1 (assq 'primary_category entry))))
            (abstract (s-trim (nth 2 (assq 'summary entry))))
-           (url (nth 2 (assq 'id entry)))
-           (temp-bibtex (format arxiv-entry-format-string "" title names year arxiv-number category abstract url))
-           (key (with-temp-buffer
-                  (insert temp-bibtex)
-		  (bibtex-mode)
-		  (bibtex-set-dialect (parsebib-find-bibtex-dialect) t)
-		  (org-ref-replace-nonascii)
-                  (bibtex-generate-autokey))))
-      (format arxiv-entry-format-string key title names year arxiv-number category abstract url))))
+           (url (nth 2 (assq 'id entry))))
+      (format arxiv-entry-format-string "" title names year arxiv-number category abstract url))))
 
 
 (defun arxiv-bibtexify-authors (authors)
